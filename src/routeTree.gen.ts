@@ -24,6 +24,7 @@ import { Route as EnfantNouveauRouteImport } from './routes/enfant/nouveau'
 import { Route as LeconLessonIdRouteImport } from './routes/lecon/$lessonId'
 import { Route as MatieresIndexRouteImport } from './routes/matieres/index'
 import { Route as MatieresSubjectIdRouteImport } from './routes/matieres/$subjectId'
+import { Route as ParentIndexRouteImport } from './routes/parent/index'
 import { Route as SequenceSequenceIdRouteImport } from './routes/sequence/$sequenceId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -101,6 +102,11 @@ const MatieresSubjectIdRoute = MatieresSubjectIdRouteImport.update({
   path: '/matieres/$subjectId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ParentIndexRoute = ParentIndexRouteImport.update({
+  id: '/parent/',
+  path: '/parent/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SequenceSequenceIdRoute = SequenceSequenceIdRouteImport.update({
   id: '/sequence/$sequenceId',
   path: '/sequence/$sequenceId',
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
+  '/parent/': typeof ParentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres': typeof MatieresIndexRoute
+  '/parent': typeof ParentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
+  '/parent/': typeof ParentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -181,6 +190,7 @@ export interface FileRouteTypes {
     | '/matieres/$subjectId'
     | '/sequence/$sequenceId'
     | '/matieres/'
+    | '/parent/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -199,6 +209,7 @@ export interface FileRouteTypes {
     | '/matieres/$subjectId'
     | '/sequence/$sequenceId'
     | '/matieres'
+    | '/parent'
   id:
     | '__root__'
     | '/'
@@ -217,6 +228,7 @@ export interface FileRouteTypes {
     | '/matieres/$subjectId'
     | '/sequence/$sequenceId'
     | '/matieres/'
+    | '/parent/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -236,6 +248,7 @@ export interface RootRouteChildren {
   MatieresSubjectIdRoute: typeof MatieresSubjectIdRoute
   SequenceSequenceIdRoute: typeof SequenceSequenceIdRoute
   MatieresIndexRoute: typeof MatieresIndexRoute
+  ParentIndexRoute: typeof ParentIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -345,6 +358,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MatieresSubjectIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/parent/': {
+      id: '/parent/'
+      path: '/parent'
+      fullPath: '/parent/'
+      preLoaderRoute: typeof ParentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sequence/$sequenceId': {
       id: '/sequence/$sequenceId'
       path: '/sequence/$sequenceId'
@@ -372,6 +392,7 @@ const rootRouteChildren: RootRouteChildren = {
   MatieresSubjectIdRoute: MatieresSubjectIdRoute,
   SequenceSequenceIdRoute: SequenceSequenceIdRoute,
   MatieresIndexRoute: MatieresIndexRoute,
+  ParentIndexRoute: ParentIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
