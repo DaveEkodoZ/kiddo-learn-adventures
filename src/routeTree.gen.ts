@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccueilRouteImport } from './routes/accueil'
 import { Route as BienvenueRouteImport } from './routes/bienvenue'
+import { Route as ClassementRouteImport } from './routes/classement'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as OtpRouteImport } from './routes/otp'
 import { Route as ProfilsRouteImport } from './routes/profils'
@@ -34,6 +35,11 @@ const AccueilRoute = AccueilRouteImport.update({
 const BienvenueRoute = BienvenueRouteImport.update({
   id: '/bienvenue',
   path: '/bienvenue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClassementRoute = ClassementRouteImport.update({
+  id: '/classement',
+  path: '/classement',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConnexionRoute = ConnexionRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accueil': typeof AccueilRoute
   '/bienvenue': typeof BienvenueRoute
+  '/classement': typeof ClassementRoute
   '/connexion': typeof ConnexionRoute
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accueil': typeof AccueilRoute
   '/bienvenue': typeof BienvenueRoute
+  '/classement': typeof ClassementRoute
   '/connexion': typeof ConnexionRoute
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
@@ -108,6 +116,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/accueil': typeof AccueilRoute
   '/bienvenue': typeof BienvenueRoute
+  '/classement': typeof ClassementRoute
   '/connexion': typeof ConnexionRoute
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accueil'
     | '/bienvenue'
+    | '/classement'
     | '/connexion'
     | '/otp'
     | '/profils'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accueil'
     | '/bienvenue'
+    | '/classement'
     | '/connexion'
     | '/otp'
     | '/profils'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accueil'
     | '/bienvenue'
+    | '/classement'
     | '/connexion'
     | '/otp'
     | '/profils'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccueilRoute: typeof AccueilRoute
   BienvenueRoute: typeof BienvenueRoute
+  ClassementRoute: typeof ClassementRoute
   ConnexionRoute: typeof ConnexionRoute
   OtpRoute: typeof OtpRoute
   ProfilsRoute: typeof ProfilsRoute
@@ -194,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/bienvenue'
       fullPath: '/bienvenue'
       preLoaderRoute: typeof BienvenueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/classement': {
+      id: '/classement'
+      path: '/classement'
+      fullPath: '/classement'
+      preLoaderRoute: typeof ClassementRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/connexion': {
@@ -259,6 +279,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccueilRoute: AccueilRoute,
   BienvenueRoute: BienvenueRoute,
+  ClassementRoute: ClassementRoute,
   ConnexionRoute: ConnexionRoute,
   OtpRoute: OtpRoute,
   ProfilsRoute: ProfilsRoute,
