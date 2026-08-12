@@ -16,6 +16,7 @@ import { Route as ClassementRouteImport } from './routes/classement'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as OtpRouteImport } from './routes/otp'
 import { Route as ProfilsRouteImport } from './routes/profils'
+import { Route as RecompensesRouteImport } from './routes/recompenses'
 import { Route as EnfantNouveauRouteImport } from './routes/enfant/nouveau'
 import { Route as LeconLessonIdRouteImport } from './routes/lecon/$lessonId'
 import { Route as MatieresIndexRouteImport } from './routes/matieres/index'
@@ -57,6 +58,11 @@ const ProfilsRoute = ProfilsRouteImport.update({
   path: '/profils',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecompensesRoute = RecompensesRouteImport.update({
+  id: '/recompenses',
+  path: '/recompenses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnfantNouveauRoute = EnfantNouveauRouteImport.update({
   id: '/enfant/nouveau',
   path: '/enfant/nouveau',
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/connexion': typeof ConnexionRoute
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
+  '/recompenses': typeof RecompensesRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/connexion': typeof ConnexionRoute
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
+  '/recompenses': typeof RecompensesRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/connexion': typeof ConnexionRoute
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
+  '/recompenses': typeof RecompensesRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/connexion'
     | '/otp'
     | '/profils'
+    | '/recompenses'
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/connexion'
     | '/otp'
     | '/profils'
+    | '/recompenses'
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/connexion'
     | '/otp'
     | '/profils'
+    | '/recompenses'
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
@@ -179,6 +191,7 @@ export interface RootRouteChildren {
   ConnexionRoute: typeof ConnexionRoute
   OtpRoute: typeof OtpRoute
   ProfilsRoute: typeof ProfilsRoute
+  RecompensesRoute: typeof RecompensesRoute
   EnfantNouveauRoute: typeof EnfantNouveauRoute
   LeconLessonIdRoute: typeof LeconLessonIdRoute
   MatieresSubjectIdRoute: typeof MatieresSubjectIdRoute
@@ -237,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfilsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recompenses': {
+      id: '/recompenses'
+      path: '/recompenses'
+      fullPath: '/recompenses'
+      preLoaderRoute: typeof RecompensesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/enfant/nouveau': {
       id: '/enfant/nouveau'
       path: '/enfant/nouveau'
@@ -283,6 +303,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConnexionRoute: ConnexionRoute,
   OtpRoute: OtpRoute,
   ProfilsRoute: ProfilsRoute,
+  RecompensesRoute: RecompensesRoute,
   EnfantNouveauRoute: EnfantNouveauRoute,
   LeconLessonIdRoute: LeconLessonIdRoute,
   MatieresSubjectIdRoute: MatieresSubjectIdRoute,
