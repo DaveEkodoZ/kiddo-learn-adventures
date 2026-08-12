@@ -16,6 +16,7 @@ import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as OtpRouteImport } from './routes/otp'
 import { Route as ProfilsRouteImport } from './routes/profils'
 import { Route as EnfantNouveauRouteImport } from './routes/enfant/nouveau'
+import { Route as LeconLessonIdRouteImport } from './routes/lecon/$lessonId'
 import { Route as MatieresIndexRouteImport } from './routes/matieres/index'
 import { Route as MatieresSubjectIdRouteImport } from './routes/matieres/$subjectId'
 import { Route as SequenceSequenceIdRouteImport } from './routes/sequence/$sequenceId'
@@ -55,6 +56,11 @@ const EnfantNouveauRoute = EnfantNouveauRouteImport.update({
   path: '/enfant/nouveau',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LeconLessonIdRoute = LeconLessonIdRouteImport.update({
+  id: '/lecon/$lessonId',
+  path: '/lecon/$lessonId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MatieresIndexRoute = MatieresIndexRouteImport.update({
   id: '/matieres/',
   path: '/matieres/',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres': typeof MatieresIndexRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profils'
     | '/enfant/nouveau'
+    | '/lecon/$lessonId'
     | '/matieres/$subjectId'
     | '/sequence/$sequenceId'
     | '/matieres/'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profils'
     | '/enfant/nouveau'
+    | '/lecon/$lessonId'
     | '/matieres/$subjectId'
     | '/sequence/$sequenceId'
     | '/matieres'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profils'
     | '/enfant/nouveau'
+    | '/lecon/$lessonId'
     | '/matieres/$subjectId'
     | '/sequence/$sequenceId'
     | '/matieres/'
@@ -155,6 +167,7 @@ export interface RootRouteChildren {
   OtpRoute: typeof OtpRoute
   ProfilsRoute: typeof ProfilsRoute
   EnfantNouveauRoute: typeof EnfantNouveauRoute
+  LeconLessonIdRoute: typeof LeconLessonIdRoute
   MatieresSubjectIdRoute: typeof MatieresSubjectIdRoute
   SequenceSequenceIdRoute: typeof SequenceSequenceIdRoute
   MatieresIndexRoute: typeof MatieresIndexRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnfantNouveauRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lecon/$lessonId': {
+      id: '/lecon/$lessonId'
+      path: '/lecon/$lessonId'
+      fullPath: '/lecon/$lessonId'
+      preLoaderRoute: typeof LeconLessonIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/matieres/': {
       id: '/matieres/'
       path: '/matieres'
@@ -243,6 +263,7 @@ const rootRouteChildren: RootRouteChildren = {
   OtpRoute: OtpRoute,
   ProfilsRoute: ProfilsRoute,
   EnfantNouveauRoute: EnfantNouveauRoute,
+  LeconLessonIdRoute: LeconLessonIdRoute,
   MatieresSubjectIdRoute: MatieresSubjectIdRoute,
   SequenceSequenceIdRoute: SequenceSequenceIdRoute,
   MatieresIndexRoute: MatieresIndexRoute,
