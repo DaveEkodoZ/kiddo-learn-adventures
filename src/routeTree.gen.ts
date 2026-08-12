@@ -25,6 +25,7 @@ import { Route as LeconLessonIdRouteImport } from './routes/lecon/$lessonId'
 import { Route as MatieresIndexRouteImport } from './routes/matieres/index'
 import { Route as MatieresSubjectIdRouteImport } from './routes/matieres/$subjectId'
 import { Route as ParentIndexRouteImport } from './routes/parent/index'
+import { Route as ParentEnfantsRouteImport } from './routes/parent/enfants'
 import { Route as SequenceSequenceIdRouteImport } from './routes/sequence/$sequenceId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -107,6 +108,11 @@ const ParentIndexRoute = ParentIndexRouteImport.update({
   path: '/parent/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ParentEnfantsRoute = ParentEnfantsRouteImport.update({
+  id: '/parent/enfants',
+  path: '/parent/enfants',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SequenceSequenceIdRoute = SequenceSequenceIdRouteImport.update({
   id: '/sequence/$sequenceId',
   path: '/sequence/$sequenceId',
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/enfants': typeof ParentEnfantsRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
   '/parent/': typeof ParentIndexRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/enfants': typeof ParentEnfantsRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres': typeof MatieresIndexRoute
   '/parent': typeof ParentIndexRoute
@@ -167,6 +175,7 @@ export interface FileRoutesById {
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/enfants': typeof ParentEnfantsRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
   '/parent/': typeof ParentIndexRoute
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
+    | '/parent/enfants'
     | '/sequence/$sequenceId'
     | '/matieres/'
     | '/parent/'
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
+    | '/parent/enfants'
     | '/sequence/$sequenceId'
     | '/matieres'
     | '/parent'
@@ -226,6 +237,7 @@ export interface FileRouteTypes {
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
+    | '/parent/enfants'
     | '/sequence/$sequenceId'
     | '/matieres/'
     | '/parent/'
@@ -246,6 +258,7 @@ export interface RootRouteChildren {
   EnfantNouveauRoute: typeof EnfantNouveauRoute
   LeconLessonIdRoute: typeof LeconLessonIdRoute
   MatieresSubjectIdRoute: typeof MatieresSubjectIdRoute
+  ParentEnfantsRoute: typeof ParentEnfantsRoute
   SequenceSequenceIdRoute: typeof SequenceSequenceIdRoute
   MatieresIndexRoute: typeof MatieresIndexRoute
   ParentIndexRoute: typeof ParentIndexRoute
@@ -365,6 +378,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ParentIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/parent/enfants': {
+      id: '/parent/enfants'
+      path: '/parent/enfants'
+      fullPath: '/parent/enfants'
+      preLoaderRoute: typeof ParentEnfantsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sequence/$sequenceId': {
       id: '/sequence/$sequenceId'
       path: '/sequence/$sequenceId'
@@ -390,6 +410,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnfantNouveauRoute: EnfantNouveauRoute,
   LeconLessonIdRoute: LeconLessonIdRoute,
   MatieresSubjectIdRoute: MatieresSubjectIdRoute,
+  ParentEnfantsRoute: ParentEnfantsRoute,
   SequenceSequenceIdRoute: SequenceSequenceIdRoute,
   MatieresIndexRoute: MatieresIndexRoute,
   ParentIndexRoute: ParentIndexRoute,
