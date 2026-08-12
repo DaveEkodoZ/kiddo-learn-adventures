@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BienvenueRouteImport } from './routes/bienvenue'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as OtpRouteImport } from './routes/otp'
+import { Route as EnfantNouveauRouteImport } from './routes/enfant/nouveau'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const OtpRoute = OtpRouteImport.update({
   path: '/otp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnfantNouveauRoute = EnfantNouveauRouteImport.update({
+  id: '/enfant/nouveau',
+  path: '/enfant/nouveau',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bienvenue': typeof BienvenueRoute
   '/connexion': typeof ConnexionRoute
   '/otp': typeof OtpRoute
+  '/enfant/nouveau': typeof EnfantNouveauRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bienvenue': typeof BienvenueRoute
   '/connexion': typeof ConnexionRoute
   '/otp': typeof OtpRoute
+  '/enfant/nouveau': typeof EnfantNouveauRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,15 @@ export interface FileRoutesById {
   '/bienvenue': typeof BienvenueRoute
   '/connexion': typeof ConnexionRoute
   '/otp': typeof OtpRoute
+  '/enfant/nouveau': typeof EnfantNouveauRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bienvenue' | '/connexion' | '/otp'
+  fullPaths: '/' | '/bienvenue' | '/connexion' | '/otp' | '/enfant/nouveau'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bienvenue' | '/connexion' | '/otp'
-  id: '__root__' | '/' | '/bienvenue' | '/connexion' | '/otp'
+  to: '/' | '/bienvenue' | '/connexion' | '/otp' | '/enfant/nouveau'
+  id:
+    '__root__' | '/' | '/bienvenue' | '/connexion' | '/otp' | '/enfant/nouveau'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +77,7 @@ export interface RootRouteChildren {
   BienvenueRoute: typeof BienvenueRoute
   ConnexionRoute: typeof ConnexionRoute
   OtpRoute: typeof OtpRoute
+  EnfantNouveauRoute: typeof EnfantNouveauRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +110,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OtpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/enfant/nouveau': {
+      id: '/enfant/nouveau'
+      path: '/enfant/nouveau'
+      fullPath: '/enfant/nouveau'
+      preLoaderRoute: typeof EnfantNouveauRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +125,7 @@ const rootRouteChildren: RootRouteChildren = {
   BienvenueRoute: BienvenueRoute,
   ConnexionRoute: ConnexionRoute,
   OtpRoute: OtpRoute,
+  EnfantNouveauRoute: EnfantNouveauRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
