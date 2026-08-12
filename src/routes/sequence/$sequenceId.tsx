@@ -57,53 +57,59 @@ function SequenceScreen() {
             <ul className="mt-3 space-y-3">
               {ch.lessons.map((l) => {
                 const locked = l.state === "locked";
-                const Wrapper = locked ? "div" : Link;
-                return (
-                  <li key={l.id}>
-                    <Wrapper
-                      {...(locked
-                        ? {}
-                        : ({ to: "/lecon/$lessonId", params: { lessonId: l.id } } as never))}
+                const rowClass = cn(
+                  "grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-3xl border p-4",
+                  locked ? "border-border bg-secondary/50" : "press border-border bg-card shadow-soft",
+                );
+                const inner = (
+                  <>
+                    <span
                       className={cn(
-                        "grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-3xl border p-4",
-                        locked
-                          ? "border-border bg-secondary/50"
-                          : "press border-border bg-card shadow-soft",
+                        "grid size-11 shrink-0 place-items-center rounded-2xl",
+                        l.state === "done"
+                          ? "bg-success text-success-foreground"
+                          : l.state === "current"
+                            ? "bg-gradient-play text-primary-foreground"
+                            : "bg-secondary text-muted-foreground",
                       )}
                     >
+                      {l.state === "done" ? (
+                        <Check className="size-5" />
+                      ) : l.state === "current" ? (
+                        <Play className="size-5" />
+                      ) : (
+                        <Lock className="size-4" />
+                      )}
+                    </span>
+                    <span className="min-w-0">
                       <span
                         className={cn(
-                          "grid size-11 shrink-0 place-items-center rounded-2xl",
-                          l.state === "done"
-                            ? "bg-success text-success-foreground"
-                            : l.state === "current"
-                              ? "bg-gradient-play text-primary-foreground"
-                              : "bg-secondary text-muted-foreground",
+                          "block truncate font-extrabold",
+                          locked && "text-muted-foreground",
                         )}
                       >
-                        {l.state === "done" ? (
-                          <Check className="size-5" />
-                        ) : l.state === "current" ? (
-                          <Play className="size-5" />
-                        ) : (
-                          <Lock className="size-4" />
-                        )}
+                        {l.title}
                       </span>
-                      <span className="min-w-0">
-                        <span
-                          className={cn(
-                            "block truncate font-extrabold",
-                            locked && "text-muted-foreground",
-                          )}
-                        >
-                          {l.title}
-                        </span>
-                        <span className="block text-xs font-bold text-muted-foreground">
-                          {l.minutes} min
-                        </span>
+                      <span className="block text-xs font-bold text-muted-foreground">
+                        {l.minutes} min
                       </span>
-                      <Stars count={l.stars} />
-                    </Wrapper>
+                    </span>
+                    <Stars count={l.stars} />
+                  </>
+                );
+                return (
+                  <li key={l.id}>
+                    {locked ? (
+                      <div className={rowClass}>{inner}</div>
+                    ) : (
+                      <Link
+                        to="/lecon/$lessonId"
+                        params={{ lessonId: l.id }}
+                        className={rowClass}
+                      >
+                        {inner}
+                      </Link>
+                    )}
                   </li>
                 );
               })}
