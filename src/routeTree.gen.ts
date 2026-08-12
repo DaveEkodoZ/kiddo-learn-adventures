@@ -25,6 +25,7 @@ import { Route as LeconLessonIdRouteImport } from './routes/lecon/$lessonId'
 import { Route as MatieresIndexRouteImport } from './routes/matieres/index'
 import { Route as MatieresSubjectIdRouteImport } from './routes/matieres/$subjectId'
 import { Route as ParentIndexRouteImport } from './routes/parent/index'
+import { Route as ParentAjouterEnfantRouteImport } from './routes/parent/ajouter-enfant'
 import { Route as ParentEnfantsRouteImport } from './routes/parent/enfants'
 import { Route as SequenceSequenceIdRouteImport } from './routes/sequence/$sequenceId'
 import { Route as ParentProgressionChildIdRouteImport } from './routes/parent/progression/$childId'
@@ -109,6 +110,11 @@ const ParentIndexRoute = ParentIndexRouteImport.update({
   path: '/parent/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ParentAjouterEnfantRoute = ParentAjouterEnfantRouteImport.update({
+  id: '/parent/ajouter-enfant',
+  path: '/parent/ajouter-enfant',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ParentEnfantsRoute = ParentEnfantsRouteImport.update({
   id: '/parent/enfants',
   path: '/parent/enfants',
@@ -141,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/ajouter-enfant': typeof ParentAjouterEnfantRoute
   '/parent/enfants': typeof ParentEnfantsRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
@@ -162,6 +169,7 @@ export interface FileRoutesByTo {
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/ajouter-enfant': typeof ParentAjouterEnfantRoute
   '/parent/enfants': typeof ParentEnfantsRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres': typeof MatieresIndexRoute
@@ -184,6 +192,7 @@ export interface FileRoutesById {
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/ajouter-enfant': typeof ParentAjouterEnfantRoute
   '/parent/enfants': typeof ParentEnfantsRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
@@ -207,6 +216,7 @@ export interface FileRouteTypes {
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
+    | '/parent/ajouter-enfant'
     | '/parent/enfants'
     | '/sequence/$sequenceId'
     | '/matieres/'
@@ -228,6 +238,7 @@ export interface FileRouteTypes {
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
+    | '/parent/ajouter-enfant'
     | '/parent/enfants'
     | '/sequence/$sequenceId'
     | '/matieres'
@@ -249,6 +260,7 @@ export interface FileRouteTypes {
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
+    | '/parent/ajouter-enfant'
     | '/parent/enfants'
     | '/sequence/$sequenceId'
     | '/matieres/'
@@ -271,6 +283,7 @@ export interface RootRouteChildren {
   EnfantNouveauRoute: typeof EnfantNouveauRoute
   LeconLessonIdRoute: typeof LeconLessonIdRoute
   MatieresSubjectIdRoute: typeof MatieresSubjectIdRoute
+  ParentAjouterEnfantRoute: typeof ParentAjouterEnfantRoute
   ParentEnfantsRoute: typeof ParentEnfantsRoute
   SequenceSequenceIdRoute: typeof SequenceSequenceIdRoute
   MatieresIndexRoute: typeof MatieresIndexRoute
@@ -392,6 +405,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ParentIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/parent/ajouter-enfant': {
+      id: '/parent/ajouter-enfant'
+      path: '/parent/ajouter-enfant'
+      fullPath: '/parent/ajouter-enfant'
+      preLoaderRoute: typeof ParentAjouterEnfantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/parent/enfants': {
       id: '/parent/enfants'
       path: '/parent/enfants'
@@ -431,6 +451,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnfantNouveauRoute: EnfantNouveauRoute,
   LeconLessonIdRoute: LeconLessonIdRoute,
   MatieresSubjectIdRoute: MatieresSubjectIdRoute,
+  ParentAjouterEnfantRoute: ParentAjouterEnfantRoute,
   ParentEnfantsRoute: ParentEnfantsRoute,
   SequenceSequenceIdRoute: SequenceSequenceIdRoute,
   MatieresIndexRoute: MatieresIndexRoute,
