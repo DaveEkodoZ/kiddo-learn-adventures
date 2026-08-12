@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BienvenueRouteImport } from './routes/bienvenue'
+import { Route as ConnexionRouteImport } from './routes/connexion'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,40 @@ const BienvenueRoute = BienvenueRouteImport.update({
   path: '/bienvenue',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConnexionRoute = ConnexionRouteImport.update({
+  id: '/connexion',
+  path: '/connexion',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bienvenue': typeof BienvenueRoute
+  '/connexion': typeof ConnexionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bienvenue': typeof BienvenueRoute
+  '/connexion': typeof ConnexionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/bienvenue': typeof BienvenueRoute
+  '/connexion': typeof ConnexionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bienvenue'
+  fullPaths: '/' | '/bienvenue' | '/connexion'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bienvenue'
-  id: '__root__' | '/' | '/bienvenue'
+  to: '/' | '/bienvenue' | '/connexion'
+  id: '__root__' | '/' | '/bienvenue' | '/connexion'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BienvenueRoute: typeof BienvenueRoute
+  ConnexionRoute: typeof ConnexionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BienvenueRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/connexion': {
+      id: '/connexion'
+      path: '/connexion'
+      fullPath: '/connexion'
+      preLoaderRoute: typeof ConnexionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BienvenueRoute: BienvenueRoute,
+  ConnexionRoute: ConnexionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
