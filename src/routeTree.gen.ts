@@ -25,8 +25,12 @@ import { Route as LeconLessonIdRouteImport } from './routes/lecon/$lessonId'
 import { Route as MatieresIndexRouteImport } from './routes/matieres/index'
 import { Route as MatieresSubjectIdRouteImport } from './routes/matieres/$subjectId'
 import { Route as ParentIndexRouteImport } from './routes/parent/index'
+import { Route as ParentAbonnementRouteImport } from './routes/parent/abonnement'
 import { Route as ParentAjouterEnfantRouteImport } from './routes/parent/ajouter-enfant'
+import { Route as ParentEcoleRouteImport } from './routes/parent/ecole'
 import { Route as ParentEnfantsRouteImport } from './routes/parent/enfants'
+import { Route as ParentNotificationsRouteImport } from './routes/parent/notifications'
+import { Route as ParentParametresRouteImport } from './routes/parent/parametres'
 import { Route as SequenceSequenceIdRouteImport } from './routes/sequence/$sequenceId'
 import { Route as ParentProgressionChildIdRouteImport } from './routes/parent/progression/$childId'
 
@@ -110,14 +114,34 @@ const ParentIndexRoute = ParentIndexRouteImport.update({
   path: '/parent/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ParentAbonnementRoute = ParentAbonnementRouteImport.update({
+  id: '/parent/abonnement',
+  path: '/parent/abonnement',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ParentAjouterEnfantRoute = ParentAjouterEnfantRouteImport.update({
   id: '/parent/ajouter-enfant',
   path: '/parent/ajouter-enfant',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ParentEcoleRoute = ParentEcoleRouteImport.update({
+  id: '/parent/ecole',
+  path: '/parent/ecole',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ParentEnfantsRoute = ParentEnfantsRouteImport.update({
   id: '/parent/enfants',
   path: '/parent/enfants',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentNotificationsRoute = ParentNotificationsRouteImport.update({
+  id: '/parent/notifications',
+  path: '/parent/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentParametresRoute = ParentParametresRouteImport.update({
+  id: '/parent/parametres',
+  path: '/parent/parametres',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SequenceSequenceIdRoute = SequenceSequenceIdRouteImport.update({
@@ -147,8 +171,12 @@ export interface FileRoutesByFullPath {
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/abonnement': typeof ParentAbonnementRoute
   '/parent/ajouter-enfant': typeof ParentAjouterEnfantRoute
+  '/parent/ecole': typeof ParentEcoleRoute
   '/parent/enfants': typeof ParentEnfantsRoute
+  '/parent/notifications': typeof ParentNotificationsRoute
+  '/parent/parametres': typeof ParentParametresRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
   '/parent/': typeof ParentIndexRoute
@@ -169,8 +197,12 @@ export interface FileRoutesByTo {
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/abonnement': typeof ParentAbonnementRoute
   '/parent/ajouter-enfant': typeof ParentAjouterEnfantRoute
+  '/parent/ecole': typeof ParentEcoleRoute
   '/parent/enfants': typeof ParentEnfantsRoute
+  '/parent/notifications': typeof ParentNotificationsRoute
+  '/parent/parametres': typeof ParentParametresRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres': typeof MatieresIndexRoute
   '/parent': typeof ParentIndexRoute
@@ -192,8 +224,12 @@ export interface FileRoutesById {
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/abonnement': typeof ParentAbonnementRoute
   '/parent/ajouter-enfant': typeof ParentAjouterEnfantRoute
+  '/parent/ecole': typeof ParentEcoleRoute
   '/parent/enfants': typeof ParentEnfantsRoute
+  '/parent/notifications': typeof ParentNotificationsRoute
+  '/parent/parametres': typeof ParentParametresRoute
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
   '/parent/': typeof ParentIndexRoute
@@ -216,8 +252,12 @@ export interface FileRouteTypes {
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
+    | '/parent/abonnement'
     | '/parent/ajouter-enfant'
+    | '/parent/ecole'
     | '/parent/enfants'
+    | '/parent/notifications'
+    | '/parent/parametres'
     | '/sequence/$sequenceId'
     | '/matieres/'
     | '/parent/'
@@ -238,8 +278,12 @@ export interface FileRouteTypes {
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
+    | '/parent/abonnement'
     | '/parent/ajouter-enfant'
+    | '/parent/ecole'
     | '/parent/enfants'
+    | '/parent/notifications'
+    | '/parent/parametres'
     | '/sequence/$sequenceId'
     | '/matieres'
     | '/parent'
@@ -260,8 +304,12 @@ export interface FileRouteTypes {
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
+    | '/parent/abonnement'
     | '/parent/ajouter-enfant'
+    | '/parent/ecole'
     | '/parent/enfants'
+    | '/parent/notifications'
+    | '/parent/parametres'
     | '/sequence/$sequenceId'
     | '/matieres/'
     | '/parent/'
@@ -283,8 +331,12 @@ export interface RootRouteChildren {
   EnfantNouveauRoute: typeof EnfantNouveauRoute
   LeconLessonIdRoute: typeof LeconLessonIdRoute
   MatieresSubjectIdRoute: typeof MatieresSubjectIdRoute
+  ParentAbonnementRoute: typeof ParentAbonnementRoute
   ParentAjouterEnfantRoute: typeof ParentAjouterEnfantRoute
+  ParentEcoleRoute: typeof ParentEcoleRoute
   ParentEnfantsRoute: typeof ParentEnfantsRoute
+  ParentNotificationsRoute: typeof ParentNotificationsRoute
+  ParentParametresRoute: typeof ParentParametresRoute
   SequenceSequenceIdRoute: typeof SequenceSequenceIdRoute
   MatieresIndexRoute: typeof MatieresIndexRoute
   ParentIndexRoute: typeof ParentIndexRoute
@@ -405,6 +457,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ParentIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/parent/abonnement': {
+      id: '/parent/abonnement'
+      path: '/parent/abonnement'
+      fullPath: '/parent/abonnement'
+      preLoaderRoute: typeof ParentAbonnementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/parent/ajouter-enfant': {
       id: '/parent/ajouter-enfant'
       path: '/parent/ajouter-enfant'
@@ -412,11 +471,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ParentAjouterEnfantRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/parent/ecole': {
+      id: '/parent/ecole'
+      path: '/parent/ecole'
+      fullPath: '/parent/ecole'
+      preLoaderRoute: typeof ParentEcoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/parent/enfants': {
       id: '/parent/enfants'
       path: '/parent/enfants'
       fullPath: '/parent/enfants'
       preLoaderRoute: typeof ParentEnfantsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/notifications': {
+      id: '/parent/notifications'
+      path: '/parent/notifications'
+      fullPath: '/parent/notifications'
+      preLoaderRoute: typeof ParentNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/parametres': {
+      id: '/parent/parametres'
+      path: '/parent/parametres'
+      fullPath: '/parent/parametres'
+      preLoaderRoute: typeof ParentParametresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sequence/$sequenceId': {
@@ -451,8 +531,12 @@ const rootRouteChildren: RootRouteChildren = {
   EnfantNouveauRoute: EnfantNouveauRoute,
   LeconLessonIdRoute: LeconLessonIdRoute,
   MatieresSubjectIdRoute: MatieresSubjectIdRoute,
+  ParentAbonnementRoute: ParentAbonnementRoute,
   ParentAjouterEnfantRoute: ParentAjouterEnfantRoute,
+  ParentEcoleRoute: ParentEcoleRoute,
   ParentEnfantsRoute: ParentEnfantsRoute,
+  ParentNotificationsRoute: ParentNotificationsRoute,
+  ParentParametresRoute: ParentParametresRoute,
   SequenceSequenceIdRoute: SequenceSequenceIdRoute,
   MatieresIndexRoute: MatieresIndexRoute,
   ParentIndexRoute: ParentIndexRoute,
