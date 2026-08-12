@@ -10,33 +10,337 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AccueilRouteImport } from './routes/accueil'
+import { Route as BienvenueRouteImport } from './routes/bienvenue'
+import { Route as ClassementRouteImport } from './routes/classement'
+import { Route as ConnexionRouteImport } from './routes/connexion'
+import { Route as DefisRouteImport } from './routes/defis'
+import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as OtpRouteImport } from './routes/otp'
+import { Route as ProfilRouteImport } from './routes/profil'
+import { Route as ProfilsRouteImport } from './routes/profils'
+import { Route as RecompensesRouteImport } from './routes/recompenses'
+import { Route as EnfantNouveauRouteImport } from './routes/enfant/nouveau'
+import { Route as LeconLessonIdRouteImport } from './routes/lecon/$lessonId'
+import { Route as MatieresIndexRouteImport } from './routes/matieres/index'
+import { Route as MatieresSubjectIdRouteImport } from './routes/matieres/$subjectId'
+import { Route as ParentIndexRouteImport } from './routes/parent/index'
+import { Route as ParentAbonnementRouteImport } from './routes/parent/abonnement'
+import { Route as ParentAjouterEnfantRouteImport } from './routes/parent/ajouter-enfant'
+import { Route as ParentEcoleRouteImport } from './routes/parent/ecole'
+import { Route as ParentEnfantsRouteImport } from './routes/parent/enfants'
+import { Route as ParentNotificationsRouteImport } from './routes/parent/notifications'
+import { Route as ParentParametresRouteImport } from './routes/parent/parametres'
+import { Route as SequenceSequenceIdRouteImport } from './routes/sequence/$sequenceId'
+import { Route as ParentProgressionChildIdRouteImport } from './routes/parent/progression/$childId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccueilRoute = AccueilRouteImport.update({
+  id: '/accueil',
+  path: '/accueil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BienvenueRoute = BienvenueRouteImport.update({
+  id: '/bienvenue',
+  path: '/bienvenue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClassementRoute = ClassementRouteImport.update({
+  id: '/classement',
+  path: '/classement',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnexionRoute = ConnexionRouteImport.update({
+  id: '/connexion',
+  path: '/connexion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DefisRoute = DefisRouteImport.update({
+  id: '/defis',
+  path: '/defis',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OtpRoute = OtpRouteImport.update({
+  id: '/otp',
+  path: '/otp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfilRoute = ProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfilsRoute = ProfilsRouteImport.update({
+  id: '/profils',
+  path: '/profils',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecompensesRoute = RecompensesRouteImport.update({
+  id: '/recompenses',
+  path: '/recompenses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnfantNouveauRoute = EnfantNouveauRouteImport.update({
+  id: '/enfant/nouveau',
+  path: '/enfant/nouveau',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeconLessonIdRoute = LeconLessonIdRouteImport.update({
+  id: '/lecon/$lessonId',
+  path: '/lecon/$lessonId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatieresIndexRoute = MatieresIndexRouteImport.update({
+  id: '/matieres/',
+  path: '/matieres/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatieresSubjectIdRoute = MatieresSubjectIdRouteImport.update({
+  id: '/matieres/$subjectId',
+  path: '/matieres/$subjectId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentIndexRoute = ParentIndexRouteImport.update({
+  id: '/parent/',
+  path: '/parent/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentAbonnementRoute = ParentAbonnementRouteImport.update({
+  id: '/parent/abonnement',
+  path: '/parent/abonnement',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentAjouterEnfantRoute = ParentAjouterEnfantRouteImport.update({
+  id: '/parent/ajouter-enfant',
+  path: '/parent/ajouter-enfant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentEcoleRoute = ParentEcoleRouteImport.update({
+  id: '/parent/ecole',
+  path: '/parent/ecole',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentEnfantsRoute = ParentEnfantsRouteImport.update({
+  id: '/parent/enfants',
+  path: '/parent/enfants',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentNotificationsRoute = ParentNotificationsRouteImport.update({
+  id: '/parent/notifications',
+  path: '/parent/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentParametresRoute = ParentParametresRouteImport.update({
+  id: '/parent/parametres',
+  path: '/parent/parametres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SequenceSequenceIdRoute = SequenceSequenceIdRouteImport.update({
+  id: '/sequence/$sequenceId',
+  path: '/sequence/$sequenceId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParentProgressionChildIdRoute =
+  ParentProgressionChildIdRouteImport.update({
+    id: '/parent/progression/$childId',
+    path: '/parent/progression/$childId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accueil': typeof AccueilRoute
+  '/bienvenue': typeof BienvenueRoute
+  '/classement': typeof ClassementRoute
+  '/connexion': typeof ConnexionRoute
+  '/defis': typeof DefisRoute
+  '/notifications': typeof NotificationsRoute
+  '/otp': typeof OtpRoute
+  '/profil': typeof ProfilRoute
+  '/profils': typeof ProfilsRoute
+  '/recompenses': typeof RecompensesRoute
+  '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/lecon/$lessonId': typeof LeconLessonIdRoute
+  '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/abonnement': typeof ParentAbonnementRoute
+  '/parent/ajouter-enfant': typeof ParentAjouterEnfantRoute
+  '/parent/ecole': typeof ParentEcoleRoute
+  '/parent/enfants': typeof ParentEnfantsRoute
+  '/parent/notifications': typeof ParentNotificationsRoute
+  '/parent/parametres': typeof ParentParametresRoute
+  '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
+  '/matieres/': typeof MatieresIndexRoute
+  '/parent/': typeof ParentIndexRoute
+  '/parent/progression/$childId': typeof ParentProgressionChildIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accueil': typeof AccueilRoute
+  '/bienvenue': typeof BienvenueRoute
+  '/classement': typeof ClassementRoute
+  '/connexion': typeof ConnexionRoute
+  '/defis': typeof DefisRoute
+  '/notifications': typeof NotificationsRoute
+  '/otp': typeof OtpRoute
+  '/profil': typeof ProfilRoute
+  '/profils': typeof ProfilsRoute
+  '/recompenses': typeof RecompensesRoute
+  '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/lecon/$lessonId': typeof LeconLessonIdRoute
+  '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/abonnement': typeof ParentAbonnementRoute
+  '/parent/ajouter-enfant': typeof ParentAjouterEnfantRoute
+  '/parent/ecole': typeof ParentEcoleRoute
+  '/parent/enfants': typeof ParentEnfantsRoute
+  '/parent/notifications': typeof ParentNotificationsRoute
+  '/parent/parametres': typeof ParentParametresRoute
+  '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
+  '/matieres': typeof MatieresIndexRoute
+  '/parent': typeof ParentIndexRoute
+  '/parent/progression/$childId': typeof ParentProgressionChildIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accueil': typeof AccueilRoute
+  '/bienvenue': typeof BienvenueRoute
+  '/classement': typeof ClassementRoute
+  '/connexion': typeof ConnexionRoute
+  '/defis': typeof DefisRoute
+  '/notifications': typeof NotificationsRoute
+  '/otp': typeof OtpRoute
+  '/profil': typeof ProfilRoute
+  '/profils': typeof ProfilsRoute
+  '/recompenses': typeof RecompensesRoute
+  '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/lecon/$lessonId': typeof LeconLessonIdRoute
+  '/matieres/$subjectId': typeof MatieresSubjectIdRoute
+  '/parent/abonnement': typeof ParentAbonnementRoute
+  '/parent/ajouter-enfant': typeof ParentAjouterEnfantRoute
+  '/parent/ecole': typeof ParentEcoleRoute
+  '/parent/enfants': typeof ParentEnfantsRoute
+  '/parent/notifications': typeof ParentNotificationsRoute
+  '/parent/parametres': typeof ParentParametresRoute
+  '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
+  '/matieres/': typeof MatieresIndexRoute
+  '/parent/': typeof ParentIndexRoute
+  '/parent/progression/$childId': typeof ParentProgressionChildIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/accueil'
+    | '/bienvenue'
+    | '/classement'
+    | '/connexion'
+    | '/defis'
+    | '/notifications'
+    | '/otp'
+    | '/profil'
+    | '/profils'
+    | '/recompenses'
+    | '/enfant/nouveau'
+    | '/lecon/$lessonId'
+    | '/matieres/$subjectId'
+    | '/parent/abonnement'
+    | '/parent/ajouter-enfant'
+    | '/parent/ecole'
+    | '/parent/enfants'
+    | '/parent/notifications'
+    | '/parent/parametres'
+    | '/sequence/$sequenceId'
+    | '/matieres/'
+    | '/parent/'
+    | '/parent/progression/$childId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/accueil'
+    | '/bienvenue'
+    | '/classement'
+    | '/connexion'
+    | '/defis'
+    | '/notifications'
+    | '/otp'
+    | '/profil'
+    | '/profils'
+    | '/recompenses'
+    | '/enfant/nouveau'
+    | '/lecon/$lessonId'
+    | '/matieres/$subjectId'
+    | '/parent/abonnement'
+    | '/parent/ajouter-enfant'
+    | '/parent/ecole'
+    | '/parent/enfants'
+    | '/parent/notifications'
+    | '/parent/parametres'
+    | '/sequence/$sequenceId'
+    | '/matieres'
+    | '/parent'
+    | '/parent/progression/$childId'
+  id:
+    | '__root__'
+    | '/'
+    | '/accueil'
+    | '/bienvenue'
+    | '/classement'
+    | '/connexion'
+    | '/defis'
+    | '/notifications'
+    | '/otp'
+    | '/profil'
+    | '/profils'
+    | '/recompenses'
+    | '/enfant/nouveau'
+    | '/lecon/$lessonId'
+    | '/matieres/$subjectId'
+    | '/parent/abonnement'
+    | '/parent/ajouter-enfant'
+    | '/parent/ecole'
+    | '/parent/enfants'
+    | '/parent/notifications'
+    | '/parent/parametres'
+    | '/sequence/$sequenceId'
+    | '/matieres/'
+    | '/parent/'
+    | '/parent/progression/$childId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccueilRoute: typeof AccueilRoute
+  BienvenueRoute: typeof BienvenueRoute
+  ClassementRoute: typeof ClassementRoute
+  ConnexionRoute: typeof ConnexionRoute
+  DefisRoute: typeof DefisRoute
+  NotificationsRoute: typeof NotificationsRoute
+  OtpRoute: typeof OtpRoute
+  ProfilRoute: typeof ProfilRoute
+  ProfilsRoute: typeof ProfilsRoute
+  RecompensesRoute: typeof RecompensesRoute
+  EnfantNouveauRoute: typeof EnfantNouveauRoute
+  LeconLessonIdRoute: typeof LeconLessonIdRoute
+  MatieresSubjectIdRoute: typeof MatieresSubjectIdRoute
+  ParentAbonnementRoute: typeof ParentAbonnementRoute
+  ParentAjouterEnfantRoute: typeof ParentAjouterEnfantRoute
+  ParentEcoleRoute: typeof ParentEcoleRoute
+  ParentEnfantsRoute: typeof ParentEnfantsRoute
+  ParentNotificationsRoute: typeof ParentNotificationsRoute
+  ParentParametresRoute: typeof ParentParametresRoute
+  SequenceSequenceIdRoute: typeof SequenceSequenceIdRoute
+  MatieresIndexRoute: typeof MatieresIndexRoute
+  ParentIndexRoute: typeof ParentIndexRoute
+  ParentProgressionChildIdRoute: typeof ParentProgressionChildIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +352,195 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accueil': {
+      id: '/accueil'
+      path: '/accueil'
+      fullPath: '/accueil'
+      preLoaderRoute: typeof AccueilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bienvenue': {
+      id: '/bienvenue'
+      path: '/bienvenue'
+      fullPath: '/bienvenue'
+      preLoaderRoute: typeof BienvenueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/classement': {
+      id: '/classement'
+      path: '/classement'
+      fullPath: '/classement'
+      preLoaderRoute: typeof ClassementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connexion': {
+      id: '/connexion'
+      path: '/connexion'
+      fullPath: '/connexion'
+      preLoaderRoute: typeof ConnexionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/defis': {
+      id: '/defis'
+      path: '/defis'
+      fullPath: '/defis'
+      preLoaderRoute: typeof DefisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/otp': {
+      id: '/otp'
+      path: '/otp'
+      fullPath: '/otp'
+      preLoaderRoute: typeof OtpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profil': {
+      id: '/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof ProfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profils': {
+      id: '/profils'
+      path: '/profils'
+      fullPath: '/profils'
+      preLoaderRoute: typeof ProfilsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recompenses': {
+      id: '/recompenses'
+      path: '/recompenses'
+      fullPath: '/recompenses'
+      preLoaderRoute: typeof RecompensesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/enfant/nouveau': {
+      id: '/enfant/nouveau'
+      path: '/enfant/nouveau'
+      fullPath: '/enfant/nouveau'
+      preLoaderRoute: typeof EnfantNouveauRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lecon/$lessonId': {
+      id: '/lecon/$lessonId'
+      path: '/lecon/$lessonId'
+      fullPath: '/lecon/$lessonId'
+      preLoaderRoute: typeof LeconLessonIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matieres/': {
+      id: '/matieres/'
+      path: '/matieres'
+      fullPath: '/matieres/'
+      preLoaderRoute: typeof MatieresIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matieres/$subjectId': {
+      id: '/matieres/$subjectId'
+      path: '/matieres/$subjectId'
+      fullPath: '/matieres/$subjectId'
+      preLoaderRoute: typeof MatieresSubjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/': {
+      id: '/parent/'
+      path: '/parent'
+      fullPath: '/parent/'
+      preLoaderRoute: typeof ParentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/abonnement': {
+      id: '/parent/abonnement'
+      path: '/parent/abonnement'
+      fullPath: '/parent/abonnement'
+      preLoaderRoute: typeof ParentAbonnementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/ajouter-enfant': {
+      id: '/parent/ajouter-enfant'
+      path: '/parent/ajouter-enfant'
+      fullPath: '/parent/ajouter-enfant'
+      preLoaderRoute: typeof ParentAjouterEnfantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/ecole': {
+      id: '/parent/ecole'
+      path: '/parent/ecole'
+      fullPath: '/parent/ecole'
+      preLoaderRoute: typeof ParentEcoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/enfants': {
+      id: '/parent/enfants'
+      path: '/parent/enfants'
+      fullPath: '/parent/enfants'
+      preLoaderRoute: typeof ParentEnfantsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/notifications': {
+      id: '/parent/notifications'
+      path: '/parent/notifications'
+      fullPath: '/parent/notifications'
+      preLoaderRoute: typeof ParentNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/parametres': {
+      id: '/parent/parametres'
+      path: '/parent/parametres'
+      fullPath: '/parent/parametres'
+      preLoaderRoute: typeof ParentParametresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sequence/$sequenceId': {
+      id: '/sequence/$sequenceId'
+      path: '/sequence/$sequenceId'
+      fullPath: '/sequence/$sequenceId'
+      preLoaderRoute: typeof SequenceSequenceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parent/progression/$childId': {
+      id: '/parent/progression/$childId'
+      path: '/parent/progression/$childId'
+      fullPath: '/parent/progression/$childId'
+      preLoaderRoute: typeof ParentProgressionChildIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccueilRoute: AccueilRoute,
+  BienvenueRoute: BienvenueRoute,
+  ClassementRoute: ClassementRoute,
+  ConnexionRoute: ConnexionRoute,
+  DefisRoute: DefisRoute,
+  NotificationsRoute: NotificationsRoute,
+  OtpRoute: OtpRoute,
+  ProfilRoute: ProfilRoute,
+  ProfilsRoute: ProfilsRoute,
+  RecompensesRoute: RecompensesRoute,
+  EnfantNouveauRoute: EnfantNouveauRoute,
+  LeconLessonIdRoute: LeconLessonIdRoute,
+  MatieresSubjectIdRoute: MatieresSubjectIdRoute,
+  ParentAbonnementRoute: ParentAbonnementRoute,
+  ParentAjouterEnfantRoute: ParentAjouterEnfantRoute,
+  ParentEcoleRoute: ParentEcoleRoute,
+  ParentEnfantsRoute: ParentEnfantsRoute,
+  ParentNotificationsRoute: ParentNotificationsRoute,
+  ParentParametresRoute: ParentParametresRoute,
+  SequenceSequenceIdRoute: SequenceSequenceIdRoute,
+  MatieresIndexRoute: MatieresIndexRoute,
+  ParentIndexRoute: ParentIndexRoute,
+  ParentProgressionChildIdRoute: ParentProgressionChildIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
