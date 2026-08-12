@@ -144,13 +144,15 @@ export const subjects: Subject[] = [
   },
 ];
 
-export const getSubject = (id: string) => subjects.find((s) => s.id === id) ?? subjects[0];
-export const getSequence = (id: string) => {
+export const getSubject = (id: string): Subject =>
+  subjects.find((s) => s.id === id) ?? (subjects[0] as Subject);
+export const getSequence = (id: string): { subject: Subject; sequence: Sequence } => {
   for (const s of subjects) {
     const found = s.sequences.find((q) => q.id === id);
     if (found) return { subject: s, sequence: found };
   }
-  return { subject: subjects[0], sequence: subjects[0].sequences[0] };
+  const first = subjects[0] as Subject;
+  return { subject: first, sequence: first.sequences[0] as Sequence };
 };
 
 /* ---------------- Lesson Engine : contenu piloté par les données ---------------- */
