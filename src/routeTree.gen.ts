@@ -16,6 +16,7 @@ import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as OtpRouteImport } from './routes/otp'
 import { Route as ProfilsRouteImport } from './routes/profils'
 import { Route as EnfantNouveauRouteImport } from './routes/enfant/nouveau'
+import { Route as MatieresIndexRouteImport } from './routes/matieres/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +53,11 @@ const EnfantNouveauRoute = EnfantNouveauRouteImport.update({
   path: '/enfant/nouveau',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MatieresIndexRoute = MatieresIndexRouteImport.update({
+  id: '/matieres/',
+  path: '/matieres/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/matieres/': typeof MatieresIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/matieres': typeof MatieresIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/matieres/': typeof MatieresIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profils'
     | '/enfant/nouveau'
+    | '/matieres/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profils'
     | '/enfant/nouveau'
+    | '/matieres'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profils'
     | '/enfant/nouveau'
+    | '/matieres/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +131,7 @@ export interface RootRouteChildren {
   OtpRoute: typeof OtpRoute
   ProfilsRoute: typeof ProfilsRoute
   EnfantNouveauRoute: typeof EnfantNouveauRoute
+  MatieresIndexRoute: typeof MatieresIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnfantNouveauRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/matieres/': {
+      id: '/matieres/'
+      path: '/matieres'
+      fullPath: '/matieres/'
+      preLoaderRoute: typeof MatieresIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +203,7 @@ const rootRouteChildren: RootRouteChildren = {
   OtpRoute: OtpRoute,
   ProfilsRoute: ProfilsRoute,
   EnfantNouveauRoute: EnfantNouveauRoute,
+  MatieresIndexRoute: MatieresIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
