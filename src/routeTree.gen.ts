@@ -17,6 +17,7 @@ import { Route as OtpRouteImport } from './routes/otp'
 import { Route as ProfilsRouteImport } from './routes/profils'
 import { Route as EnfantNouveauRouteImport } from './routes/enfant/nouveau'
 import { Route as MatieresIndexRouteImport } from './routes/matieres/index'
+import { Route as MatieresSubjectIdRouteImport } from './routes/matieres/$subjectId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const MatieresIndexRoute = MatieresIndexRouteImport.update({
   path: '/matieres/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MatieresSubjectIdRoute = MatieresSubjectIdRouteImport.update({
+  id: '/matieres/$subjectId',
+  path: '/matieres/$subjectId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/matieres/$subjectId': typeof MatieresSubjectIdRoute
   '/matieres/': typeof MatieresIndexRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/matieres/$subjectId': typeof MatieresSubjectIdRoute
   '/matieres': typeof MatieresIndexRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/otp': typeof OtpRoute
   '/profils': typeof ProfilsRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
+  '/matieres/$subjectId': typeof MatieresSubjectIdRoute
   '/matieres/': typeof MatieresIndexRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profils'
     | '/enfant/nouveau'
+    | '/matieres/$subjectId'
     | '/matieres/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profils'
     | '/enfant/nouveau'
+    | '/matieres/$subjectId'
     | '/matieres'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/otp'
     | '/profils'
     | '/enfant/nouveau'
+    | '/matieres/$subjectId'
     | '/matieres/'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   OtpRoute: typeof OtpRoute
   ProfilsRoute: typeof ProfilsRoute
   EnfantNouveauRoute: typeof EnfantNouveauRoute
+  MatieresSubjectIdRoute: typeof MatieresSubjectIdRoute
   MatieresIndexRoute: typeof MatieresIndexRoute
 }
 
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MatieresIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/matieres/$subjectId': {
+      id: '/matieres/$subjectId'
+      path: '/matieres/$subjectId'
+      fullPath: '/matieres/$subjectId'
+      preLoaderRoute: typeof MatieresSubjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   OtpRoute: OtpRoute,
   ProfilsRoute: ProfilsRoute,
   EnfantNouveauRoute: EnfantNouveauRoute,
+  MatieresSubjectIdRoute: MatieresSubjectIdRoute,
   MatieresIndexRoute: MatieresIndexRoute,
 }
 export const routeTree = rootRouteImport
