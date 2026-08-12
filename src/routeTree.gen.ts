@@ -27,6 +27,7 @@ import { Route as MatieresSubjectIdRouteImport } from './routes/matieres/$subjec
 import { Route as ParentIndexRouteImport } from './routes/parent/index'
 import { Route as ParentEnfantsRouteImport } from './routes/parent/enfants'
 import { Route as SequenceSequenceIdRouteImport } from './routes/sequence/$sequenceId'
+import { Route as ParentProgressionChildIdRouteImport } from './routes/parent/progression/$childId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -118,6 +119,12 @@ const SequenceSequenceIdRoute = SequenceSequenceIdRouteImport.update({
   path: '/sequence/$sequenceId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ParentProgressionChildIdRoute =
+  ParentProgressionChildIdRouteImport.update({
+    id: '/parent/progression/$childId',
+    path: '/parent/progression/$childId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
   '/parent/': typeof ParentIndexRoute
+  '/parent/progression/$childId': typeof ParentProgressionChildIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -158,6 +166,7 @@ export interface FileRoutesByTo {
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres': typeof MatieresIndexRoute
   '/parent': typeof ParentIndexRoute
+  '/parent/progression/$childId': typeof ParentProgressionChildIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -179,6 +188,7 @@ export interface FileRoutesById {
   '/sequence/$sequenceId': typeof SequenceSequenceIdRoute
   '/matieres/': typeof MatieresIndexRoute
   '/parent/': typeof ParentIndexRoute
+  '/parent/progression/$childId': typeof ParentProgressionChildIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/sequence/$sequenceId'
     | '/matieres/'
     | '/parent/'
+    | '/parent/progression/$childId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -221,6 +232,7 @@ export interface FileRouteTypes {
     | '/sequence/$sequenceId'
     | '/matieres'
     | '/parent'
+    | '/parent/progression/$childId'
   id:
     | '__root__'
     | '/'
@@ -241,6 +253,7 @@ export interface FileRouteTypes {
     | '/sequence/$sequenceId'
     | '/matieres/'
     | '/parent/'
+    | '/parent/progression/$childId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -262,6 +275,7 @@ export interface RootRouteChildren {
   SequenceSequenceIdRoute: typeof SequenceSequenceIdRoute
   MatieresIndexRoute: typeof MatieresIndexRoute
   ParentIndexRoute: typeof ParentIndexRoute
+  ParentProgressionChildIdRoute: typeof ParentProgressionChildIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -392,6 +406,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SequenceSequenceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/parent/progression/$childId': {
+      id: '/parent/progression/$childId'
+      path: '/parent/progression/$childId'
+      fullPath: '/parent/progression/$childId'
+      preLoaderRoute: typeof ParentProgressionChildIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -414,6 +435,7 @@ const rootRouteChildren: RootRouteChildren = {
   SequenceSequenceIdRoute: SequenceSequenceIdRoute,
   MatieresIndexRoute: MatieresIndexRoute,
   ParentIndexRoute: ParentIndexRoute,
+  ParentProgressionChildIdRoute: ParentProgressionChildIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
