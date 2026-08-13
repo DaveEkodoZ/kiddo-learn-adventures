@@ -104,10 +104,10 @@ export function LessonEngine({
 
         <div className="mt-8 space-y-3">
           <button
-            onClick={onExit}
+            onClick={onNext ?? onExit}
             className="press w-full rounded-3xl bg-primary px-6 py-4 text-lg font-extrabold text-primary-foreground shadow-pop"
           >
-            Leçon suivante
+            {nextLabel}
           </button>
           <Link
             to="/recompenses"
