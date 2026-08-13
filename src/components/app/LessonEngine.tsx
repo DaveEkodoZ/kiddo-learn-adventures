@@ -5,14 +5,32 @@ import { ProgressBar, Stars } from "@/components/app/MobileShell";
 import { cn } from "@/lib/utils";
 import type { Step } from "@/lib/mock-data";
 
-type Props = { title: string; subject: string; steps: Step[]; onExit: () => void };
+type Props = {
+  title: string;
+  subject: string;
+  steps: Step[];
+  onExit: () => void;
+  /** Appelé quand l'élève atteint l'écran de résultat (leçon terminée). */
+  onComplete?: () => void;
+  /** Bouton principal de l'écran de résultat. */
+  onNext?: () => void;
+  nextLabel?: string;
+};
 
 /**
  * Lesson Engine : un seul écran qui joue dynamiquement toutes les activités
  * (INTRO, EXPLANATION, QCM, TRUE_FALSE, FILL_BLANK, DRAG_DROP, MATCHING,
  * CALCULATION, RESULT). Ajouter une leçon = ajouter du contenu, pas une page.
  */
-export function LessonEngine({ title, subject, steps, onExit }: Props) {
+export function LessonEngine({
+  title,
+  subject,
+  steps,
+  onExit,
+  onComplete,
+  onNext,
+  nextLabel = "Leçon suivante",
+}: Props) {
   const [index, setIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [answered, setAnswered] = useState<null | boolean>(null);
