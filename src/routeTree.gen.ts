@@ -20,6 +20,7 @@ import { Route as OtpRouteImport } from './routes/otp'
 import { Route as ProfilRouteImport } from './routes/profil'
 import { Route as ProfilsRouteImport } from './routes/profils'
 import { Route as RecompensesRouteImport } from './routes/recompenses'
+import { Route as ChapitreChapterIdRouteImport } from './routes/chapitre/$chapterId'
 import { Route as EnfantNouveauRouteImport } from './routes/enfant/nouveau'
 import { Route as LeconLessonIdRouteImport } from './routes/lecon/$lessonId'
 import { Route as MatieresIndexRouteImport } from './routes/matieres/index'
@@ -87,6 +88,11 @@ const ProfilsRoute = ProfilsRouteImport.update({
 const RecompensesRoute = RecompensesRouteImport.update({
   id: '/recompenses',
   path: '/recompenses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChapitreChapterIdRoute = ChapitreChapterIdRouteImport.update({
+  id: '/chapitre/$chapterId',
+  path: '/chapitre/$chapterId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnfantNouveauRoute = EnfantNouveauRouteImport.update({
@@ -168,6 +174,7 @@ export interface FileRoutesByFullPath {
   '/profil': typeof ProfilRoute
   '/profils': typeof ProfilsRoute
   '/recompenses': typeof RecompensesRoute
+  '/chapitre/$chapterId': typeof ChapitreChapterIdRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
@@ -194,6 +201,7 @@ export interface FileRoutesByTo {
   '/profil': typeof ProfilRoute
   '/profils': typeof ProfilsRoute
   '/recompenses': typeof RecompensesRoute
+  '/chapitre/$chapterId': typeof ChapitreChapterIdRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
@@ -221,6 +229,7 @@ export interface FileRoutesById {
   '/profil': typeof ProfilRoute
   '/profils': typeof ProfilsRoute
   '/recompenses': typeof RecompensesRoute
+  '/chapitre/$chapterId': typeof ChapitreChapterIdRoute
   '/enfant/nouveau': typeof EnfantNouveauRoute
   '/lecon/$lessonId': typeof LeconLessonIdRoute
   '/matieres/$subjectId': typeof MatieresSubjectIdRoute
@@ -249,6 +258,7 @@ export interface FileRouteTypes {
     | '/profil'
     | '/profils'
     | '/recompenses'
+    | '/chapitre/$chapterId'
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
@@ -275,6 +285,7 @@ export interface FileRouteTypes {
     | '/profil'
     | '/profils'
     | '/recompenses'
+    | '/chapitre/$chapterId'
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
@@ -301,6 +312,7 @@ export interface FileRouteTypes {
     | '/profil'
     | '/profils'
     | '/recompenses'
+    | '/chapitre/$chapterId'
     | '/enfant/nouveau'
     | '/lecon/$lessonId'
     | '/matieres/$subjectId'
@@ -328,6 +340,7 @@ export interface RootRouteChildren {
   ProfilRoute: typeof ProfilRoute
   ProfilsRoute: typeof ProfilsRoute
   RecompensesRoute: typeof RecompensesRoute
+  ChapitreChapterIdRoute: typeof ChapitreChapterIdRoute
   EnfantNouveauRoute: typeof EnfantNouveauRoute
   LeconLessonIdRoute: typeof LeconLessonIdRoute
   MatieresSubjectIdRoute: typeof MatieresSubjectIdRoute
@@ -420,6 +433,13 @@ declare module '@tanstack/react-router' {
       path: '/recompenses'
       fullPath: '/recompenses'
       preLoaderRoute: typeof RecompensesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chapitre/$chapterId': {
+      id: '/chapitre/$chapterId'
+      path: '/chapitre/$chapterId'
+      fullPath: '/chapitre/$chapterId'
+      preLoaderRoute: typeof ChapitreChapterIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/enfant/nouveau': {
@@ -528,6 +548,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfilRoute: ProfilRoute,
   ProfilsRoute: ProfilsRoute,
   RecompensesRoute: RecompensesRoute,
+  ChapitreChapterIdRoute: ChapitreChapterIdRoute,
   EnfantNouveauRoute: EnfantNouveauRoute,
   LeconLessonIdRoute: LeconLessonIdRoute,
   MatieresSubjectIdRoute: MatieresSubjectIdRoute,
