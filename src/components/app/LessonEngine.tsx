@@ -1,18 +1,36 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Check, X, Volume2 } from "lucide-react";
 import { ProgressBar, Stars } from "@/components/app/MobileShell";
 import { cn } from "@/lib/utils";
 import type { Step } from "@/lib/mock-data";
 
-type Props = { title: string; subject: string; steps: Step[]; onExit: () => void };
+type Props = {
+  title: string;
+  subject: string;
+  steps: Step[];
+  onExit: () => void;
+  /** Appelé quand l'élève atteint l'écran de résultat (leçon terminée). */
+  onComplete?: () => void;
+  /** Bouton principal de l'écran de résultat. */
+  onNext?: () => void;
+  nextLabel?: string;
+};
 
 /**
  * Lesson Engine : un seul écran qui joue dynamiquement toutes les activités
  * (INTRO, EXPLANATION, QCM, TRUE_FALSE, FILL_BLANK, DRAG_DROP, MATCHING,
  * CALCULATION, RESULT). Ajouter une leçon = ajouter du contenu, pas une page.
  */
-export function LessonEngine({ title, subject, steps, onExit }: Props) {
+export function LessonEngine({
+  title,
+  subject,
+  steps,
+  onExit,
+  onComplete,
+  onNext,
+  nextLabel = "Leçon suivante",
+}: Props) {
   const [index, setIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [answered, setAnswered] = useState<null | boolean>(null);
@@ -34,6 +52,11 @@ export function LessonEngine({ title, subject, steps, onExit }: Props) {
     setAnswered(ok);
     if (ok) setCorrect((c) => c + 1);
   };
+
+  const finished = step.type === "RESULT";
+  useEffect(() => {
+    if (finished) onComplete?.();
+  }, [finished, onComplete]);
 
   if (step.type === "RESULT") {
     const score = quizCount ? Math.round((correct / quizCount) * 100) : 100;
@@ -81,10 +104,10 @@ export function LessonEngine({ title, subject, steps, onExit }: Props) {
 
         <div className="mt-8 space-y-3">
           <button
-            onClick={onExit}
+            onClick={onNext ?? onExit}
             className="press w-full rounded-3xl bg-primary px-6 py-4 text-lg font-extrabold text-primary-foreground shadow-pop"
           >
-            Leçon suivante
+            {nextLabel}
           </button>
           <Link
             to="/recompenses"
