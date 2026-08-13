@@ -53,6 +53,11 @@ export function LessonEngine({
     if (ok) setCorrect((c) => c + 1);
   };
 
+  const finished = step.type === "RESULT";
+  useEffect(() => {
+    if (finished) onComplete?.();
+  }, [finished, onComplete]);
+
   if (step.type === "RESULT") {
     const score = quizCount ? Math.round((correct / quizCount) * 100) : 100;
     const stars = score >= 90 ? 3 : score >= 60 ? 2 : 1;
