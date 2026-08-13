@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Check, X, Volume2 } from "lucide-react";
 import { ProgressBar, Stars } from "@/components/app/MobileShell";
