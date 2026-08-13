@@ -285,3 +285,118 @@ export const challenges = [
   { title: "20 bonnes réponses", reward: "+30 pièces", progress: 40, kind: "Quotidien" },
   { title: "Terminer la séquence 2", reward: "🏅 Badge", progress: 45, kind: "Hebdo" },
 ];
+
+/* ---------------- Déblocage progressif (séquences → chapitres → leçons) ---------------- */
+
+export const getChapter = (
+  id: string,
+): { subject: Subject; sequence: Sequence; chapter: Chapter } => {
+  for (const s of subjects)
+    for (const q of s.sequences) {
+      const c = q.chapters.find((ch) => ch.id === id);
+      if (c) return { subject: s, sequence: q, chapter: c };
+    }
+  const s0 = subjects[0] as Subject;
+  const q0 = s0.sequences[0] as Sequence;
+  return { subject: s0, sequence: q0, chapter: q0.chapters[0] as Chapter };
+};
+
+export const chapterLessonIds = (c: Chapter) => c.lessons.map((l) => l.id);
+export const sequenceLessonIds = (q: Sequence) => q.chapters.flatMap(chapterLessonIds);
+
+export const ratio = (ids: string[], done: string[]) =>
+  ids.length === 0 ? 0 : Math.round((ids.filter((i) => done.includes(i)).length / ids.length) * 100);
+
+const allDone = (ids: string[], done: string[]) => ids.every((i) => done.includes(i));
+
+export const isSequenceUnlocked = (subject: Subject, q: Sequence, done: string[]) => {
+  const i = subject.sequences.findIndex((s) => s.id === q.id);
+  if (i <= 0) return true;
+  const prev = subject.sequences[i - 1] as Sequence;
+  return allDone(sequenceLessonIds(prev), done);
+};
+
+export const isChapterUnlocked = (q: Sequence, c: Chapter, done: string[]) => {
+  const i = q.chapters.findIndex((ch) => ch.id === c.id);
+  if (i <= 0) return true;
+  const prev = q.chapters[i - 1] as Chapter;
+  return allDone(chapterLessonIds(prev), done);
+};
+
+export const isLessonUnlocked = (c: Chapter, lessonId: string, done: string[]) => {
+  const i = c.lessons.findIndex((l) => l.id === lessonId);
+  if (i <= 0) return true;
+  const prev = c.lessons[i - 1] as Lesson;
+  return done.includes(prev.id);
+};
+
+export const getLesson = (
+  id: string,
+): { subject: Subject; sequence: Sequence; chapter: Chapter; lesson: Lesson } | null => {
+  for (const s of subjects)
+    for (const q of s.sequences)
+      for (const c of q.chapters) {
+        const l = c.lessons.find((x) => x.id === id);
+        if (l) return { subject: s, sequence: q, chapter: c, lesson: l };
+      }
+  return null;
+};
+
+export const nextLessonId = (c: Chapter, id: string): string | null => {
+  const i = c.lessons.findIndex((l) => l.id === id);
+  return i >= 0 && c.lessons[i + 1] ? (c.lessons[i + 1] as Lesson).id : null;
+};
+
+/** Construit une leçon complète : intro → cours → exercice → correction → défi → solution. */
+export function buildLesson(
+  lesson: Lesson,
+  subject: Subject,
+  chapter: Chapter,
+): { title: string; subject: string; steps: Step[] } {
+  if (subject.id === "maths" && lesson.title.toLowerCase().includes("comparer"))
+    return defaultLesson;
+
+  const seed = lesson.id.length + lesson.title.length;
+  const a = 10 + (seed % 20);
+  const b = 3 + (seed % 9);
+
+  const steps: Step[] = [
+    {
+      type: "INTRO",
+      title: lesson.title,
+      text: `Bienvenue dans « ${lesson.title} » ! On découvre ensemble ${chapter.title.toLowerCase()}.`,
+      emoji: subject.emoji,
+    },
+    {
+      type: "EXPLANATION",
+      title: "📘 Le cours",
+      text: `Pour réussir « ${lesson.title} », observe bien les exemples, écoute l'explication puis répète à voix haute.`,
+      emoji: "🧠",
+    },
+    {
+      type: "QCM",
+      question: `✏️ Exercice : que faut-il faire dans « ${lesson.title} » ?`,
+      options: ["Observer puis répondre", "Deviner au hasard", "Ne rien lire"],
+      answer: 0,
+    },
+    {
+      type: "EXPLANATION",
+      title: "✅ Correction",
+      text: "La bonne réponse est « Observer puis répondre » : on lit la consigne, on observe, ensuite on répond.",
+      emoji: "🔎",
+    },
+    {
+      type: "CALCULATION",
+      question: `🏆 Défi : ${a} + ${b} = ?`,
+      answer: a + b,
+    },
+    {
+      type: "EXPLANATION",
+      title: "🗝️ Solution du défi",
+      text: `${a} + ${b} = ${a + b}. On ajoute d'abord les unités, puis on complète les dizaines.`,
+      emoji: "💡",
+    },
+    { type: "RESULT" },
+  ];
+  return { title: lesson.title, subject: subject.name, steps };
+}
