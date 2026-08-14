@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Check, X, Volume2 } from "lucide-react";
+import { Check, RotateCcw, X, Volume2 } from "lucide-react";
 import { ProgressBar, Stars } from "@/components/app/MobileShell";
 import { cn } from "@/lib/utils";
-import type { Step } from "@/lib/mock-data";
+import { children as kids, type Step } from "@/lib/mock-data";
+
 
 type Props = {
   title: string;
