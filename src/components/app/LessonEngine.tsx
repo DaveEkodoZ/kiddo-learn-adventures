@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Check, X, Volume2 } from "lucide-react";
+import { Check, RotateCcw, X, Volume2 } from "lucide-react";
 import { ProgressBar, Stars } from "@/components/app/MobileShell";
 import { cn } from "@/lib/utils";
-import type { Step } from "@/lib/mock-data";
+import { children as kids, type Step } from "@/lib/mock-data";
+
 
 type Props = {
   title: string;
@@ -34,6 +35,11 @@ export function LessonEngine({
   const [index, setIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [answered, setAnswered] = useState<null | boolean>(null);
+  /** Change de clé pour remonter l'activité et repartir de zéro. */
+  const [tryKey, setTryKey] = useState(0);
+  const [tries, setTries] = useState(1);
+  /** Étapes où l'élève s'est trompé au moins une fois (score = 1er essai). */
+  const [missed, setMissed] = useState<number[]>([]);
 
   const step = steps[index] as Step;
   const total = steps.length;
@@ -44,14 +50,27 @@ export function LessonEngine({
 
   const next = () => {
     setAnswered(null);
+    setTries(1);
+    setTryKey((k) => k + 1);
     setIndex((i) => Math.min(total - 1, i + 1));
+  };
+
+  const retry = () => {
+    setAnswered(null);
+    setTries((t) => t + 1);
+    setTryKey((k) => k + 1);
   };
 
   const validate = (ok: boolean) => {
     if (answered !== null) return;
     setAnswered(ok);
-    if (ok) setCorrect((c) => c + 1);
+    if (ok) {
+      if (!missed.includes(index)) setCorrect((c) => c + 1);
+    } else if (!missed.includes(index)) {
+      setMissed((m) => [...m, index]);
+    }
   };
+
 
   const finished = step.type === "RESULT";
   useEffect(() => {
@@ -122,7 +141,7 @@ export function LessonEngine({
 
   return (
     <div className="flex min-h-[80vh] flex-col">
-      <header className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
+      <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
         <button
           onClick={onExit}
           aria-label="Quitter la leçon"
@@ -136,26 +155,36 @@ export function LessonEngine({
             {title} • étape {index + 1} / {total}
           </p>
         </div>
+        <AvatarMood answered={answered} />
       </header>
 
       <div className="mt-6 flex-1">
-        <StepView step={step} answered={answered} onAnswer={validate} />
+        <StepView key={`${index}-${tryKey}`} step={step} answered={answered} onAnswer={validate} />
       </div>
 
-      <Feedback answered={answered} />
+      <Feedback answered={answered} tries={tries} />
 
-      <button
-        onClick={next}
-        disabled={needsAnswer(step) && answered === null}
-        className={cn(
-          "press mt-4 w-full rounded-3xl px-6 py-4 text-lg font-extrabold shadow-pop",
-          needsAnswer(step) && answered === null
-            ? "bg-secondary text-muted-foreground shadow-none"
-            : "bg-primary text-primary-foreground",
-        )}
-      >
-        {needsAnswer(step) && answered === null ? "Choisis une réponse" : "Continuer"}
-      </button>
+      {answered === false ? (
+        <button
+          onClick={retry}
+          className="press mt-4 flex w-full items-center justify-center gap-2 rounded-3xl bg-accent px-6 py-4 text-lg font-extrabold text-accent-foreground shadow-pop"
+        >
+          <RotateCcw className="size-5" /> Réessayer
+        </button>
+      ) : (
+        <button
+          onClick={next}
+          disabled={needsAnswer(step) && answered === null}
+          className={cn(
+            "press mt-4 w-full rounded-3xl px-6 py-4 text-lg font-extrabold shadow-pop",
+            needsAnswer(step) && answered === null
+              ? "bg-secondary text-muted-foreground shadow-none"
+              : "bg-primary text-primary-foreground",
+          )}
+        >
+          {needsAnswer(step) && answered === null ? "Choisis une réponse" : "Continuer"}
+        </button>
+      )}
     </div>
   );
 }
@@ -163,7 +192,36 @@ export function LessonEngine({
 const needsAnswer = (s: Step) =>
   s.type !== "INTRO" && s.type !== "EXPLANATION" && s.type !== "RESULT";
 
-function Feedback({ answered }: { answered: null | boolean }) {
+/** L'avatar de l'enfant réagit : content, triste ou fâché selon la réponse. */
+function AvatarMood({ answered }: { answered: null | boolean }) {
+  const me = kids[0]!;
+  return (
+    <div className="relative shrink-0">
+      <span
+        className={cn(
+          "grid size-12 place-items-center rounded-2xl text-2xl transition-colors",
+          answered === null && "bg-secondary",
+          answered === true && "animate-pop bg-success/25",
+          answered === false && "animate-pop bg-destructive/20",
+        )}
+      >
+        {me.avatar}
+      </span>
+      <span
+        className={cn(
+          "absolute -right-1 -bottom-1 grid size-6 place-items-center rounded-full border-2 border-background text-[11px]",
+          answered === null && "bg-secondary",
+          answered === true && "bg-success",
+          answered === false && "bg-destructive",
+        )}
+      >
+        {answered === null ? "🙂" : answered ? "😄" : "😢"}
+      </span>
+    </div>
+  );
+}
+
+function Feedback({ answered, tries }: { answered: null | boolean; tries: number }) {
   if (answered === null) return null;
   return (
     <div
@@ -180,10 +238,17 @@ function Feedback({ answered }: { answered: null | boolean }) {
       >
         {answered ? <Check className="size-5" /> : <X className="size-5" />}
       </span>
-      <span className="min-w-0">{answered ? "Super, c'est juste !" : "Presque ! Regarde bien."}</span>
+      <span className="min-w-0">
+        {answered
+          ? tries > 1
+            ? "Bravo, tu as réussi en persévérant !"
+            : "Super, c'est juste !"
+          : `Presque ! Essai ${tries} — tu peux réessayer 💪`}
+      </span>
     </div>
   );
 }
+
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
@@ -217,7 +282,20 @@ function Choice({
   );
 }
 
+/** Ne révèle jamais la bonne réponse après une erreur : l'élève doit réessayer. */
+function choiceState(
+  answered: null | boolean,
+  picked: number | null,
+  i: number,
+  correctIndex: number,
+): "idle" | "good" | "bad" {
+  if (answered === null) return "idle";
+  if (answered) return i === correctIndex ? "good" : "idle";
+  return picked === i ? "bad" : "idle";
+}
+
 function StepView({
+
   step,
   answered,
   onAnswer,
@@ -261,15 +339,8 @@ function StepView({
                   setPicked(i);
                   onAnswer(i === step.answer);
                 }}
-                state={
-                  answered === null || picked !== i
-                    ? answered !== null && i === step.answer
-                      ? "good"
-                      : "idle"
-                    : i === step.answer
-                      ? "good"
-                      : "bad"
-                }
+                state={choiceState(answered, picked, i, step.answer)}
+
               >
                 {o}
               </Choice>
