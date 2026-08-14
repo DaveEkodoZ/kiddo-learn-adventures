@@ -141,7 +141,7 @@ export function LessonEngine({
 
   return (
     <div className="flex min-h-[80vh] flex-col">
-      <header className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
+      <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
         <button
           onClick={onExit}
           aria-label="Quitter la leçon"
@@ -155,26 +155,36 @@ export function LessonEngine({
             {title} • étape {index + 1} / {total}
           </p>
         </div>
+        <AvatarMood answered={answered} />
       </header>
 
       <div className="mt-6 flex-1">
-        <StepView step={step} answered={answered} onAnswer={validate} />
+        <StepView key={`${index}-${tryKey}`} step={step} answered={answered} onAnswer={validate} />
       </div>
 
-      <Feedback answered={answered} />
+      <Feedback answered={answered} tries={tries} />
 
-      <button
-        onClick={next}
-        disabled={needsAnswer(step) && answered === null}
-        className={cn(
-          "press mt-4 w-full rounded-3xl px-6 py-4 text-lg font-extrabold shadow-pop",
-          needsAnswer(step) && answered === null
-            ? "bg-secondary text-muted-foreground shadow-none"
-            : "bg-primary text-primary-foreground",
-        )}
-      >
-        {needsAnswer(step) && answered === null ? "Choisis une réponse" : "Continuer"}
-      </button>
+      {answered === false ? (
+        <button
+          onClick={retry}
+          className="press mt-4 flex w-full items-center justify-center gap-2 rounded-3xl bg-accent px-6 py-4 text-lg font-extrabold text-accent-foreground shadow-pop"
+        >
+          <RotateCcw className="size-5" /> Réessayer
+        </button>
+      ) : (
+        <button
+          onClick={next}
+          disabled={needsAnswer(step) && answered === null}
+          className={cn(
+            "press mt-4 w-full rounded-3xl px-6 py-4 text-lg font-extrabold shadow-pop",
+            needsAnswer(step) && answered === null
+              ? "bg-secondary text-muted-foreground shadow-none"
+              : "bg-primary text-primary-foreground",
+          )}
+        >
+          {needsAnswer(step) && answered === null ? "Choisis une réponse" : "Continuer"}
+        </button>
+      )}
     </div>
   );
 }
@@ -182,7 +192,36 @@ export function LessonEngine({
 const needsAnswer = (s: Step) =>
   s.type !== "INTRO" && s.type !== "EXPLANATION" && s.type !== "RESULT";
 
-function Feedback({ answered }: { answered: null | boolean }) {
+/** L'avatar de l'enfant réagit : content, triste ou fâché selon la réponse. */
+function AvatarMood({ answered }: { answered: null | boolean }) {
+  const me = kids[0]!;
+  return (
+    <div className="relative shrink-0">
+      <span
+        className={cn(
+          "grid size-12 place-items-center rounded-2xl text-2xl transition-colors",
+          answered === null && "bg-secondary",
+          answered === true && "animate-pop bg-success/25",
+          answered === false && "animate-pop bg-destructive/20",
+        )}
+      >
+        {me.avatar}
+      </span>
+      <span
+        className={cn(
+          "absolute -right-1 -bottom-1 grid size-6 place-items-center rounded-full border-2 border-background text-[11px]",
+          answered === null && "bg-secondary",
+          answered === true && "bg-success",
+          answered === false && "bg-destructive",
+        )}
+      >
+        {answered === null ? "🙂" : answered ? "😄" : "😢"}
+      </span>
+    </div>
+  );
+}
+
+function Feedback({ answered, tries }: { answered: null | boolean; tries: number }) {
   if (answered === null) return null;
   return (
     <div
@@ -199,10 +238,17 @@ function Feedback({ answered }: { answered: null | boolean }) {
       >
         {answered ? <Check className="size-5" /> : <X className="size-5" />}
       </span>
-      <span className="min-w-0">{answered ? "Super, c'est juste !" : "Presque ! Regarde bien."}</span>
+      <span className="min-w-0">
+        {answered
+          ? tries > 1
+            ? "Bravo, tu as réussi en persévérant !"
+            : "Super, c'est juste !"
+          : `Presque ! Essai ${tries} — tu peux réessayer 💪`}
+      </span>
     </div>
   );
 }
+
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
