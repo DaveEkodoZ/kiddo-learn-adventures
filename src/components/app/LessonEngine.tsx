@@ -326,15 +326,8 @@ function StepView({
                   setPicked(i);
                   onAnswer(i === step.answer);
                 }}
-                state={
-                  answered === null || picked !== i
-                    ? answered !== null && i === step.answer
-                      ? "good"
-                      : "idle"
-                    : i === step.answer
-                      ? "good"
-                      : "bad"
-                }
+                state={choiceState(answered, picked, i, step.answer)}
+
               >
                 {o}
               </Choice>
