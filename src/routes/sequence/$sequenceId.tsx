@@ -1,6 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, Lock, Play, Trophy } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { Trophy } from "lucide-react";
 import { MobileShell, ProgressBar, ScreenHeader } from "@/components/app/MobileShell";
+import { PathMap } from "@/components/app/PathMap";
 import {
   chapterLessonIds,
   getSequence,
@@ -10,6 +11,7 @@ import {
 } from "@/lib/mock-data";
 import { useProgress } from "@/lib/progress";
 import { cn } from "@/lib/utils";
+
 
 export const Route = createFileRoute("/sequence/$sequenceId")({
   head: () => ({
