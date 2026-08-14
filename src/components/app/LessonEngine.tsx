@@ -282,7 +282,20 @@ function Choice({
   );
 }
 
+/** Ne révèle jamais la bonne réponse après une erreur : l'élève doit réessayer. */
+function choiceState(
+  answered: null | boolean,
+  picked: number | null,
+  i: number,
+  correctIndex: number,
+): "idle" | "good" | "bad" {
+  if (answered === null) return "idle";
+  if (answered) return i === correctIndex ? "good" : "idle";
+  return picked === i ? "bad" : "idle";
+}
+
 function StepView({
+
   step,
   answered,
   onAnswer,
