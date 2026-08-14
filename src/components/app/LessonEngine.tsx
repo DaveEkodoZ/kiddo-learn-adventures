@@ -35,6 +35,11 @@ export function LessonEngine({
   const [index, setIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [answered, setAnswered] = useState<null | boolean>(null);
+  /** Change de clé pour remonter l'activité et repartir de zéro. */
+  const [tryKey, setTryKey] = useState(0);
+  const [tries, setTries] = useState(1);
+  /** Étapes où l'élève s'est trompé au moins une fois (score = 1er essai). */
+  const [missed, setMissed] = useState<number[]>([]);
 
   const step = steps[index] as Step;
   const total = steps.length;
@@ -45,14 +50,27 @@ export function LessonEngine({
 
   const next = () => {
     setAnswered(null);
+    setTries(1);
+    setTryKey((k) => k + 1);
     setIndex((i) => Math.min(total - 1, i + 1));
+  };
+
+  const retry = () => {
+    setAnswered(null);
+    setTries((t) => t + 1);
+    setTryKey((k) => k + 1);
   };
 
   const validate = (ok: boolean) => {
     if (answered !== null) return;
     setAnswered(ok);
-    if (ok) setCorrect((c) => c + 1);
+    if (ok) {
+      if (!missed.includes(index)) setCorrect((c) => c + 1);
+    } else if (!missed.includes(index)) {
+      setMissed((m) => [...m, index]);
+    }
   };
+
 
   const finished = step.type === "RESULT";
   useEffect(() => {
