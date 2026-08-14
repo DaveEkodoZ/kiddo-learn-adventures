@@ -82,7 +82,7 @@ function SequenceScreen() {
             label: `Niveau ${ci + 1}`,
             sublabel: unlocked ? `${ch.title} • ${chProgress}%` : "Verrouillé",
             state: finished ? "done" : isCurrent ? "current" : unlocked ? "open" : "locked",
-            emoji: finished ? undefined : unlocked ? "🎯" : undefined,
+            emoji: "🎯",
             link: { to: "/chapitre/$chapterId", params: { chapterId: ch.id } },
           } as const;
         })}
