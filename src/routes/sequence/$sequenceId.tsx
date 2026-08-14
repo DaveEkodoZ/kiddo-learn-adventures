@@ -54,75 +54,38 @@ function SequenceScreen() {
         </p>
       </div>
 
-      <ol className="relative mt-7 space-y-4 pl-8">
-        <span className="absolute top-4 bottom-4 left-3 w-1 rounded-full bg-secondary" />
-        {sequence.chapters.map((ch, ci) => {
-          const ids = chapterLessonIds(ch);
-          const chProgress = ratio(ids, done);
+      <div className="mt-6 flex items-center gap-2">
+        <h2 className="text-lg">Ma carte de parcours</h2>
+        <span className="text-lg">🗺️</span>
+      </div>
+
+      <PathMap
+        className="mt-2"
+        nodes={sequence.chapters.map((ch, ci) => {
+          const chProgress = ratio(chapterLessonIds(ch), done);
           const unlocked = isChapterUnlocked(sequence, ch, done);
           const finished = chProgress === 100;
+          const isCurrent =
+            unlocked &&
+            !finished &&
+            !sequence.chapters.some(
+              (c, i) =>
+                i < ci &&
+                isChapterUnlocked(sequence, c, done) &&
+                ratio(chapterLessonIds(c), done) !== 100,
+            );
 
-          return (
-            <li key={ch.id} className="relative">
-              <span
-                className={cn(
-                  "absolute top-6 -left-8 grid size-7 place-items-center rounded-full text-xs font-extrabold ring-4 ring-background",
-                  finished
-                    ? "bg-success text-success-foreground"
-                    : unlocked
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-secondary text-muted-foreground",
-                )}
-              >
-                {ci + 1}
-              </span>
-
-              {unlocked ? (
-                <Link
-                  to="/chapitre/$chapterId"
-                  params={{ chapterId: ch.id }}
-                  className="press block rounded-3xl border border-border bg-card p-4 shadow-soft"
-                >
-                  <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
-                    <span
-                      className={cn(
-                        "grid size-11 shrink-0 place-items-center rounded-2xl",
-                        finished
-                          ? "bg-success text-success-foreground"
-                          : "bg-gradient-play text-primary-foreground",
-                      )}
-                    >
-                      {finished ? <Check className="size-5" /> : <Play className="size-5" />}
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block truncate font-extrabold">
-                        Niveau {ci + 1} • {ch.title}
-                      </span>
-                      <span className="block text-xs font-bold text-muted-foreground">
-                        {ch.lessons.length} leçons • {chProgress}%
-                      </span>
-                    </span>
-                    <span className="shrink-0 text-lg">{finished ? "⭐" : "🎯"}</span>
-                  </div>
-                  <ProgressBar value={chProgress} className="mt-3 h-2" />
-                </Link>
-              ) : (
-                <div className="rounded-3xl border border-dashed border-border bg-secondary/50 p-4">
-                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-                    <p className="min-w-0 truncate font-extrabold text-muted-foreground">
-                      Niveau {ci + 1} • {ch.title}
-                    </p>
-                    <Lock className="size-4 shrink-0 text-muted-foreground" />
-                  </div>
-                  <p className="mt-1 text-xs font-bold text-muted-foreground">
-                    Termine le niveau précédent pour débloquer
-                  </p>
-                </div>
-              )}
-            </li>
-          );
+          return {
+            id: ch.id,
+            label: `Niveau ${ci + 1}`,
+            sublabel: unlocked ? `${ch.title} • ${chProgress}%` : "Verrouillé",
+            state: finished ? "done" : isCurrent ? "current" : unlocked ? "open" : "locked",
+            emoji: finished ? undefined : unlocked ? "🎯" : undefined,
+            link: { to: "/chapitre/$chapterId", params: { chapterId: ch.id } },
+          } as const;
         })}
-      </ol>
+      />
+
 
       <div className="mt-8 rounded-[2rem] bg-gradient-sun p-5 shadow-soft">
         <div className="flex items-center gap-3">
